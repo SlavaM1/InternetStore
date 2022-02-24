@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <link rel="stylesheet" href="/static/style.css">
+    <title>Шаблон электронного письма</title>
+</head>
+<body>
+ <div th:each="el : ${cart}" class="alert alert-info mt-2">
+        <h3 th:text ="${el.name}"/>
+        <b>Количество:</b><p th:text ="${ CartSession[el.id][0]}"/>
+        <b>Цена:</b> <p th:text =" ${CartSession[el.id][0] * CartSession[el.id][1]}"/>
+</div>
+<div>
+<b>Итого:</b><a th:text ="${valueCart}"/>
+</div>
+<div>
+ <b>Имя:</b><a th:text ="${fio}"/><br>
+ <b>Mail:</b><a th:text ="${email}"/><br>
+  <b>Телефон:</b><a th:text ="${phone}"/><br>
+    <b>Примечание:</b><a th:text ="${message_cart}"/><br>
+</div>
+
+</body>

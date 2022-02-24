@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Блог сайта</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Данные о заказе</h1>
+    <u><a class="me-3 py-2 text-dark text-decoration-none" href="/order">назад</a></u>
+    <div th:each="el : ${OrderDetails}" class="alert alert-info mt-2">
+       <b>Id заказа:</b> <h3 th:text ="${el.id_order}"/>
+         <b>Дата заказа:</b><p th:text ="${el.data_order}"/>
+         <p>---------------------------------------------------------------------------------------------------------</p>
+         <div th:each="al : ${productDetails}" >
+          <h3 th:text ="${al.name}"/>
+           <img th:src="@{${'/img/' + al.filename}}"
+                	              width="70"/><br>
+                 <b>Количество:</b><p th:text ="${ priceOrder[al.id][0]}"/>
+                 <b>Цена:</b> <p th:text =" ${priceOrder[al.id][0] * priceOrder[al.id][1]}"/>
+         </div>
+         <p>---------------------------------------------------------------------------------------------------------</p>
+        <b>Итоговая цена:</b><p th:text ="${el.final_price}"/>
+
+        <b>Текущий статус:</b> <p th:text ="${el.status_order}"/>
+
+
+
+
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>
