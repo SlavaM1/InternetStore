@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping(UserPath.RECOVERY)
     public String recoveryProfilePost(User user, @RequestParam String email) {
         userService.recoveryAccount(user, email);
-        return "recovery";
+        return "redirect:/login";
     }
 
     //подтвержденяи пользователя

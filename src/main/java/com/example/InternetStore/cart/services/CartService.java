@@ -15,7 +15,7 @@ public class CartService {
     private final GetSessionService getSessionService;
     private final MarketRepository marketRepository;
 
-    //неправильно считает, надо править
+
     public Double SumCart(HashMap<Long, List<Double>> notes) {
 
         //подсчет итоговой суммы корзины
