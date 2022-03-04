@@ -26,4 +26,7 @@ public class PromoCode {
     //размер скидки
     private int discount;
 
+    //активность промокола
+    private boolean activeCode;
+
 }

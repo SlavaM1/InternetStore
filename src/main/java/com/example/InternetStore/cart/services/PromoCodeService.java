@@ -19,6 +19,23 @@ public class PromoCodeService {
         promoCode.setFirstPromoCode(promoCodeDto.getFirstPromoCode());
         promoCode.setLastPromoCode(promoCodeDto.getLastPromoCode());
         promoCode.setDiscount(promoCodeDto.getDiscount());
+        promoCode.setActiveCode(true);
+        promoCodeRepository.save(promoCode);
+    }
+
+    //деактивировать промокод
+    public void promoCodeDisableService(long id) {
+        PromoCode promoCode;
+        promoCode = promoCodeRepository.findById(id);
+        promoCode.setActiveCode(false);
+        promoCodeRepository.save(promoCode);
+    }
+
+    //активировать промокод
+    public void promoCodeEnableService(long id) {
+        PromoCode promoCode;
+        promoCode = promoCodeRepository.findById(id);
+        promoCode.setActiveCode(true);
         promoCodeRepository.save(promoCode);
     }
 }

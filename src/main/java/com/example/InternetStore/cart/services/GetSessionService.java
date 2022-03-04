@@ -14,4 +14,10 @@ public class GetSessionService {
         HashMap<Long, List<Double>> CartSession = (HashMap<Long, List<Double>>) request.getSession().getAttribute("CART_SESSION");
         return CartSession;
     }
+
+    //получаем сессию корзины из БД
+    public HashMap<String,Integer> getSessionPromoCode(HttpServletRequest request){
+        HashMap<String,Integer> PromoCodeSession = (HashMap<String,Integer>) request.getSession().getAttribute("PROMO_CODE_SESSION");
+        return PromoCodeSession;
+    }
 }

@@ -72,5 +72,10 @@ public class CartController {
         return "carts/cart-order";
     }
 
+    //применение промокода
+    @PostMapping(CartPath.PROMO_CODE_APPLY)
+    public String cartPromoCodeApply(@PathVariable String promoCode, HttpServletRequest request){
+        return cartService.cartPromoCodeApplyService(promoCode, request);
+    }
 
 }

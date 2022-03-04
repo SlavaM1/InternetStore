@@ -1,5 +1,7 @@
 package com.example.InternetStore.cart.services;
 
+import com.example.InternetStore.cart.models.PromoCode;
+import com.example.InternetStore.cart.repositories.PromoCodeRepository;
 import com.example.InternetStore.market.models.Market;
 import com.example.InternetStore.market.repositories.MarketRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,7 @@ import java.util.*;
 public class CartService {
     private final GetSessionService getSessionService;
     private final MarketRepository marketRepository;
-
+    private final PromoCodeRepository promoCodeRepository;
 
     public Double SumCart(HashMap<Long, List<Double>> notes) {
 
@@ -59,7 +61,7 @@ public class CartService {
         request.getSession().setAttribute("CART_SESSION", CartSession);
     }
 
-    public HashMap<Long, List<Double>> showCartItemService(HttpServletRequest request){
+    public HashMap<Long, List<Double>> showCartItemService(HttpServletRequest request) {
         HashMap<Long, List<Double>> CartSession = getSessionService.getSessionCart(request);
 
         //если нету в сессии ничего, то не выводить
@@ -144,5 +146,26 @@ public class CartService {
         }
         //кладем обратно в сессию
         request.getSession().setAttribute("CART_SESSION", reduceItem);
+    }
+
+    public String cartPromoCodeApplyService(String promoCode, HttpServletRequest request) {
+        PromoCode promoCode1;
+        promoCode1 = promoCodeRepository.findByPromoCode(promoCode);
+
+        //ищем промокод, если есть такой
+        if (promoCode1 != null) {
+            HashMap<String, Integer>  promoCodeSession = new HashMap<String, Integer>();
+            //кладем данный промокод в хэш таблицу
+            promoCodeSession.put(promoCode,promoCode1.getDiscount());
+            //проверяем сессию, пуста или нет
+            if (getSessionService.getSessionCart(request) == null) {
+                //кладем в сессию
+                request.getSession().setAttribute("PROMO_CODE_SESSION", promoCodeSession);
+            }
+        } else {
+            return "Данный промокод не найден";
+        }
+
+        return "Промокод успешно применен";
     }
 }

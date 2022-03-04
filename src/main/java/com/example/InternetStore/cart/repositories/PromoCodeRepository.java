@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PromoCodeRepository extends JpaRepository<PromoCode, Long> {
+    PromoCode findById(long id);
+    PromoCode findByPromoCode(String promoCode);
 }

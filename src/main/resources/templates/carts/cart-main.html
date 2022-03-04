@@ -16,6 +16,16 @@
 			<input type="submit" value="Очистить всю корзину" />
 		</form>
 	</div>
+
+    <div><br>
+        <form action="/cart/promo" method="post" enctype="multipart/form-data">
+            <a>Введите промокод:</a><br>
+            <input type="text" name="promoCode" placeholder="Введите название промокода" size="25"><br>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="btn btn-success">Применить</button>
+        </form>
+    </div>
+
 		</div>
 <div class="container mt-5">
     <h1>Корзина</h1>

@@ -14,4 +14,6 @@ public interface CartPath {
     String CART_ORDER = "/order";
 
     String DESTROY_SESSION_CART = "/invalidate/session";
+
+    String PROMO_CODE_APPLY = "/promo";
 }
