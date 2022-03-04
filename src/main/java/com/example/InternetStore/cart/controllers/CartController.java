@@ -6,12 +6,10 @@ import com.example.InternetStore.utils.path.CartPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 @Controller
@@ -74,8 +72,10 @@ public class CartController {
 
     //применение промокода
     @PostMapping(CartPath.PROMO_CODE_APPLY)
-    public String cartPromoCodeApply(@PathVariable String promoCode, HttpServletRequest request){
-        return cartService.cartPromoCodeApplyService(promoCode, request);
+    public String cartPromoCodeApply(@RequestParam("promo-code") String promoCode, HttpServletRequest request, Map<String, Object> model){
+
+            model.put("message", cartService.cartPromoCodeApplyService(promoCode, request));
+            return "carts/cart-main";
     }
 
 }
