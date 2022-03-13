@@ -3,6 +3,7 @@ package com.example.InternetStore.cart.controllers;
 
 import com.example.InternetStore.cart.services.CartService;
 import com.example.InternetStore.utils.path.CartPath;
+import com.example.InternetStore.utils.path.MarketPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class CartController {
                               HttpServletRequest request) {
 
         cartService.addProductToSession(id,price,request);
-        return "redirect:/market";
+        return "redirect:" + MarketPath.MARKET;
     }
 
     //выводим всю корзину
@@ -39,28 +40,28 @@ public class CartController {
     public String destroySessionCart(HttpServletRequest request) {
         //обнуляем всю корзину сессию
         cartService.destroySessionCartService(request);
-        return "redirect:/cart";
+        return "redirect:" + CartPath.CART;
     }
 
     //удалить конкретный товар из сессии
     @PostMapping(CartPath.CART_REMOVE_ITEM)
     public String cartRemoveItem(@PathVariable(value = "id") long id, HttpServletRequest request) {
         cartService.cartRemoveItemService(id, request);
-        return "redirect:/cart";
+        return "redirect:" + CartPath.CART;
     }
 
     //увеличить количество товара
     @PostMapping(CartPath.CART_INCREASE_ITEM)
     public String cartIncreaseItem(@PathVariable(value = "id") long id, HttpServletRequest request) {
         cartService.cartIncreaseItemService(id,request);
-        return "redirect:/cart";
+        return "redirect:" + CartPath.CART;
     }
 
     //уменьшение количества товара
     @PostMapping(CartPath.CART_REDUCE_ITEM)
     public String cartReduceItem(@PathVariable(value = "id") long id, HttpServletRequest request) {
         cartService.cartReduceItemService(id,request);
-        return "redirect:/cart";
+        return "redirect:" + CartPath.CART;
     }
 
     //страница оформления заказа
@@ -73,9 +74,13 @@ public class CartController {
     //применение промокода
     @PostMapping(CartPath.PROMO_CODE_APPLY)
     public String cartPromoCodeApply(@RequestParam("promo-code") String promoCode, HttpServletRequest request, Map<String, Object> model){
-
             model.put("message", cartService.cartPromoCodeApplyService(promoCode, request));
             return "carts/cart-main";
     }
 
+    @PostMapping(CartPath.PROMO_CODE_REMOVE)
+    public String cartPromoCodeRemove(HttpServletRequest request){
+        cartService.cartPromoCodeRemoveService(request);
+        return "redirect:" + CartPath.CART;
+    }
 }

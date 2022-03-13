@@ -23,11 +23,16 @@
 <!--                            <input type="checkbox" name="nameCategory" value="${ele.nameCategory}" >-->
 <!--                             <label for="vehicle1"> <a th:text="${ele.nameCategory}"/></label><br>-->
 <!--       </div><br>-->
-<!--        тут ошибка-->
-<!--      <div  th:each="el : ${category}">-->
-<!--                 <label> <input type="checkbox" th:name="${el.nameCategory}" th:value="${el.nameCategory}" ><a th:text ="${el.nameCategory}"/> </label>-->
-<!--              </div><br>-->
-        <input type="checkbox" name="id" value="1" ><a text ="авы"/>
+
+        <label>Категория:<br>
+            <input type="checkbox" name="id"
+                   th:each="el : ${category}"
+                   th:text="${el.nameCategory}"
+                   th:value="${el.id}"
+                   class="line_break"
+            /><br>
+        </label><br>
+<!--        <input type="checkbox" name="id" value="1" ><a text ="авы"/>-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <button type="submit" class="btn btn-success">Добавить товар</button>
     </form>

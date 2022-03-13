@@ -85,17 +85,23 @@ public class CartService {
 
         //подсчет итоговой суммы корзины
         double valueCart = SumCart(CartSession);
-        HashMap<String, Integer>  promoCodeSession;
+        HashMap<String, Integer> promoCodeSession;
+        Set<String> keysPromoCode = null;
         double discount = 0;
         //расчет скидки
         if (getSessionService.getSessionPromoCode(request) != null) {
             promoCodeSession = getSessionService.getSessionPromoCode(request);
             ArrayList<Integer> values = new ArrayList<>(promoCodeSession.values());
             discount = valueCart - ((valueCart * values.get(0)) / 100);
+
+            //вывод названия промокода
+            keysPromoCode = promoCodeSession.keySet();
+
         }
         //проверяем, если сумма есть, значит товар есть, выводим текущую корзину
         //иначе выводим ниче и просим добавить что нибудь в корзину
         if (valueCart != 0) {
+            model.addAttribute("keysPromoCode", keysPromoCode);
             model.addAttribute("cartValueSum", valueCart);
             model.addAttribute("discount", discount);
             model.addAttribute("CartSession", CartSession != null ? CartSession : new ArrayList<>());
@@ -159,24 +165,27 @@ public class CartService {
     public String cartPromoCodeApplyService(String promoCode, HttpServletRequest request) {
         PromoCode promoCode1;
         promoCode1 = promoCodeRepository.findByPromoCode(promoCode);
-        boolean promo = promoCode1 != null;
+
         //ищем промокод, если есть такой
-        if (promo) {
-            HashMap<String, Integer>  promoCodeSession = new HashMap<String, Integer>();
+        if (promoCode1 != null) {
+            HashMap<String, Integer> promoCodeSession = new HashMap<String, Integer>();
             //кладем данный промокод в хэш таблицу
-            promoCodeSession.put(promoCode,promoCode1.getDiscount());
+            promoCodeSession.put(promoCode, promoCode1.getDiscount());
             //проверяем сессию, пуста или нет
             if (getSessionService.getSessionPromoCode(request) == null) {
                 //кладем в сессию
                 request.getSession().setAttribute("PROMO_CODE_SESSION", promoCodeSession);
-                return "ee";
+                return "промокод успешно применен";
+            } else {
+                return "у вас уже применен промокод";
             }
-        } else if (promo){
-            return "Данный промокод не найден";
         } else {
-
+            return "Данный промокод не найден";
         }
 
-        return "Промокод успешно применен";
+    }
+
+    public void cartPromoCodeRemoveService(HttpServletRequest request) {
+        request.getSession().setAttribute("PROMO_CODE_SESSION", null);
     }
 }

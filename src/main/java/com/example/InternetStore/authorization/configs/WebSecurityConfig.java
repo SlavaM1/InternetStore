@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     //доступ всем пользователям
                     .antMatchers("/","/registration","/market/**","/cart/**","/cart","/sendSimpleEmail","/img/**", "/static/**", "/market/*",
-                            "/activate/*","/user/recovery","/user/recovery/*","/market/add").permitAll()
+                            "/activate/*","/user/recovery","/user/recovery/*","/market/add", "/cart/remove/promo").permitAll()
                     //доступ только админу
                     .antMatchers("/admin/**").hasAuthority("ADMIN")
                     .antMatchers("/user/**").hasAuthority("USER")

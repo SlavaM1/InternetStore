@@ -81,7 +81,7 @@ public class MarketService {
 
 
     //добавляем товар
-    public void marketProductAddService(String name, float price, String full_text, MultipartFile file, long id) throws IOException {
+    public void marketProductAddService(String name, float price, String full_text, MultipartFile file, List<Long> ids) throws IOException {
         Market market = new Market(name, full_text, price);
 
         //добавление изображенния, проверка что он есть
@@ -102,9 +102,14 @@ public class MarketService {
             market.setFilename(resultFilename);
         }
 
-        Categories categories = categoriesRepository.findById(id);
+        //добавляем категории в товар
+        List<Categories> categoriesList = new ArrayList<>();
 
-        market.addCategoriesToMarket(categories);
+        for (long id : ids) {
+            categoriesList.add(categoriesRepository.findById(id));
+        }
+        market.setCategories(categoriesList);
+
         marketRepository.save(market);
     }
 

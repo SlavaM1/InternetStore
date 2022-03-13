@@ -93,3 +93,6 @@ body {
     }
 }
 
+.line_break{
+    word-wrap: normal;
+}

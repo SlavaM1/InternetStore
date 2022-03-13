@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,7 +58,7 @@ class MarketController {
                                @RequestParam float price,
                                @RequestParam String full_text,
                                @RequestParam("file") MultipartFile file,
-                               @RequestParam("id") long id) throws IOException {
+                               @RequestParam("id") List<Long> id) throws IOException {
         marketService.marketProductAddService(name,price,full_text,file,id);
         return "redirect:/market";
     }
