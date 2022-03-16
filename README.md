@@ -1,7 +1,7 @@
 # InternetStore
 
 Проект написан на стеке: 
-Spring MVC + Hibernate + Thymeleaf + MySQL.
+Spring MVC + Hibernate + Thymeleaf + MySQL.<br>
 Проект протестирован с java версия 17.
 
 ### Что релизованно:
