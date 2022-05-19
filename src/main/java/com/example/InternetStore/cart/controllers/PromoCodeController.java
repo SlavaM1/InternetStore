@@ -1,7 +1,7 @@
 package com.example.InternetStore.cart.controllers;
 
 
-import com.example.InternetStore.cart.Dto.PromoCodeDto;
+import com.example.InternetStore.cart.dto.PromoCodeDto;
 import com.example.InternetStore.cart.repositories.PromoCodeRepository;
 import com.example.InternetStore.cart.services.PromoCodeService;
 import com.example.InternetStore.utils.path.AdminPath;

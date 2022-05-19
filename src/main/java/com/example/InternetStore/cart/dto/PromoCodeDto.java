@@ -1,4 +1,4 @@
-package com.example.InternetStore.cart.Dto;
+package com.example.InternetStore.cart.dto;
 
 
 import lombok.Data;

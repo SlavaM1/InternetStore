@@ -1,7 +1,7 @@
 package com.example.InternetStore.cart.services;
 
 
-import com.example.InternetStore.cart.Dto.PromoCodeDto;
+import com.example.InternetStore.cart.dto.PromoCodeDto;
 import com.example.InternetStore.cart.models.PromoCode;
 import com.example.InternetStore.cart.repositories.PromoCodeRepository;
 import lombok.RequiredArgsConstructor;
